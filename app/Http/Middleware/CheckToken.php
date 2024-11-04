@@ -22,7 +22,8 @@ class CheckToken
 
         // Verificar si el token existe y no ha expirado
         if (!$token || Carbon::now()->greaterThan($token->expires_at)) {
-            return response()->json(['error' => 'Token is invalid or expired'], 401);
+            return response()->json(['error' => 'Token is invalid or expired', 
+            'success' => false], 401);
         }
 
         return $next($request);

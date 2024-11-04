@@ -9,11 +9,6 @@ use Carbon\Carbon;
 
 class customerController extends Controller
 {
-    public function index() 
-    {
-        return 'primero';
-    }
-
     public function createCustomer(Request $request)
     {
         $dataCustomer = $request->only('dni', 'id_reg', 'id_com', 'email', 'name', 'last_name', 'address');
@@ -34,14 +29,16 @@ class customerController extends Controller
         if(!$customer)
         {
             $data = [
-                'message' => 'Error al crear el estudiante',
+                'message' => 'Error al crear el registro',
+                'success' => false,
                 'status' => 500
             ];
             return response()->json($data, 500);
         }
         $data = [
             'customer' => $customer,
-            'status' => 201
+            'success' => true,
+            'status' => 200
         ];
 
         return response()->json($data, 201);
@@ -65,6 +62,7 @@ class customerController extends Controller
         if (!$customer) {
             $data = [
                 'message' => 'Registro no existe',
+                'success' => false,
                 'status' => 404
             ];
             return response()->json($data, 404);
@@ -80,6 +78,7 @@ class customerController extends Controller
                 'commune_description' => $customer->commune->description ?? null,
                 'estatus' => $customer->estatus,
             ],
+            'success' => true,
             'status' => 200
         ];
     
@@ -97,6 +96,7 @@ class customerController extends Controller
     if (!$customer) {
         $data = [
             'message' => 'Registro no encontrado o ya eliminado',
+            'success' => false,
             'status' => 404
         ];
         return response()->json($data, 404);
@@ -107,6 +107,7 @@ class customerController extends Controller
 
     $data = [
         'message' => 'Registro eliminado exitosamente',
+        'success' => true,
         'status' => 200
     ];
 

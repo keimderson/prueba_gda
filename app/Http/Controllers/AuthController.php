@@ -52,6 +52,6 @@ class AuthController extends Controller
             return response()->json(['token' => $token, 'expires_at' => $expiresAt->format('Y-m-d H:i:s')], 200);
         }
 
-        return response()->json(['error' => 'Unauthorized', 'credenci' => $credentials], 401);
+        return response()->json(['error' => 'Unauthorized'], 401);
     }
 }
